@@ -1,40 +1,63 @@
 {
-  "name": "cordova-plugin-photo-library",
-  "version": "2.2.1",
-  "description": "Plugin that just gets photos from the gallery",
-  "main": "index.js",
-  "scripts": {
-    "test:android": "cordova-paramedic --platform android --plugin . --verbose",
-    "test:ios": "cordova-paramedic --platform ios --plugin . --verbose",
-    "test": "echo \"Run tests with https://github.com/terikon/cordova-plugin-photo-library-tester, or run test:android or test:ios.\" && exit 1",
-    "copy-test-images:android:emulator": "adb -e push tests/test-images /mnt/sdcard/DCIM && adb -e shell am broadcast -a android.intent.action.MEDIA_MOUNTED -d file:///sdcard",
-    "copy-test-images:ios:simulator": "xcrun simctl addmedia booted tests/test-images/*"
-  },
-  "repository": {
+  "_from": "git+https://github.com/nilebma/cordova-plugin-photo-library.git",
+  "_id": "cordova-plugin-photo-library@2.2.1",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-photo-library",
+  "_phantomChildren": {},
+  "_requested": {
     "type": "git",
-    "url": "git+https://github.com/terikon/cordova-plugin-photo-library.git"
+    "raw": "https://github.com/nilebma/cordova-plugin-photo-library.git",
+    "rawSpec": "https://github.com/nilebma/cordova-plugin-photo-library.git",
+    "saveSpec": "git+https://github.com/nilebma/cordova-plugin-photo-library.git",
+    "fetchSpec": "https://github.com/nilebma/cordova-plugin-photo-library.git",
+    "gitCommittish": null
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/nilebma/cordova-plugin-photo-library.git#32541372c431b31d239b02bb826cc27308a1b913",
+  "_spec": "https://github.com/nilebma/cordova-plugin-photo-library.git",
+  "_where": "/Users/chinieer/web/cordova/cube_sugar",
   "author": {
     "name": "Roman Viskin",
     "email": "npm@terikon.com",
     "url": "http://il.linkedin.com/in/romanviskin"
   },
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/terikon/cordova-plugin-photo-library/issues"
   },
-  "homepage": "https://github.com/terikon/cordova-plugin-photo-library#readme",
+  "bundleDependencies": false,
+  "dependencies": {
+    "async": "^2.1.4"
+  },
+  "deprecated": false,
+  "description": "Plugin that just gets photos from the gallery",
   "devDependencies": {
-    "eslint": "^3.14.1",
     "@types/cordova": "^0.0.34",
     "@types/jasmine": "^2.5.41",
+    "blueimp-canvastoblob": "2.1.0",
+    "cordova-paramedic": "git+https://github.com/apache/cordova-paramedic.git",
     "es5-shim": "4.5.9",
     "es6-shim": "0.35.3",
     "es7-shim": "6.0.0",
-    "blueimp-canvastoblob": "2.1.0",
-    "cordova-paramedic": "https://github.com/apache/cordova-paramedic.git"
+    "eslint": "^3.14.1"
   },
-  "dependencies": {
-    "async": "^2.1.4"
-  }
+  "homepage": "https://github.com/terikon/cordova-plugin-photo-library#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "cordova-plugin-photo-library",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terikon/cordova-plugin-photo-library.git"
+  },
+  "scripts": {
+    "copy-test-images:android:emulator": "adb -e push tests/test-images /mnt/sdcard/DCIM && adb -e shell am broadcast -a android.intent.action.MEDIA_MOUNTED -d file:///sdcard",
+    "copy-test-images:ios:simulator": "xcrun simctl addmedia booted tests/test-images/*",
+    "test": "echo \"Run tests with https://github.com/terikon/cordova-plugin-photo-library-tester, or run test:android or test:ios.\" && exit 1",
+    "test:android": "cordova-paramedic --platform android --plugin . --verbose",
+    "test:ios": "cordova-paramedic --platform ios --plugin . --verbose"
+  },
+  "version": "2.2.1"
 }
