@@ -9,15 +9,45 @@ import Foundation
         // Do not call PhotoLibraryService here, as it will cause permission prompt to appear on app start.
 
         URLProtocol.registerClass(PhotoLibraryProtocol.self)
+        NSLog("-- PhotoLibrary --11")
+        // NotificationCenter.default.addObserver(
+        //     self,
+        //     selector: #selector(self.onPause),
+        //     name:   Notification.Name("CDVPluginHandleOpenURLNotification"),
+        //     object: nil
+        // )
+        
+        // print("is vpn \(checkVpn())")
+//        UIScreen.main.brightness = CGFloat(1)
 
     }
 
     override func onMemoryWarning() {
         // self.service.stopCaching()
         NSLog("-- MEMORY WARNING --")
+   
     }
-
-
+    
+    @objc func checkVpn(_ command: CDVInvokedUrlCommand)  {
+        
+        concurrentQueue.async {
+            var pluginResult:CDVPluginResult?
+            if let settings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? Dictionary<String, Any>,
+                let scopes = settings["__SCOPED__"] as? [String:Any] {
+                for (key, _) in scopes {
+                    if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
+                        pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: true)
+                    }
+                }
+            }
+            pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: false)
+            self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
+        }
+    }
+    @objc func onPause (notification: NSNotification) {
+//        UIScreen.main.brightness = CGFloat(0.1)
+        print("CDVViewWillDisappearNotification")
+    }
     // Will sort by creation date
     @objc(getLibrary:) func getLibrary(_ command: CDVInvokedUrlCommand) {
         concurrentQueue.async {

@@ -6,8 +6,8 @@ declare module PhotoLibraryCordova {
 
     requestAuthorization(success: () => void, error: (err: any) => void, options?: RequestAuthorizationOptions): void;
 
-    getAlbums(success: (result: AlbumItem[]) => void, error: (err:any) => void): void;
-    isAuthorized(success: (result: boolean) => void, error: (err:any) => void): void;
+    getAlbums(success: (result: AlbumItem[]) => void, error: (err: any) => void): void;
+    isAuthorized(success: (result: boolean) => void, error: (err: any) => void): void;
 
     getThumbnailURL(photoId: string, success: (result: string) => void, error: (err: any) => void, options?: GetThumbnailOptions): void;
     getThumbnailURL(libraryItem: LibraryItem, success: (result: string) => void, error: (err: any) => void, options?: GetThumbnailOptions): void;
@@ -31,6 +31,8 @@ declare module PhotoLibraryCordova {
     saveImage(url: string, album: AlbumItem | string, success: (libraryItem: LibraryItem) => void, error: (err: any) => void, options?: GetThumbnailOptions): void;
 
     saveVideo(url: string, album: AlbumItem | string, success: () => void, error: (err: any) => void): void;
+    //chinieer
+    checkVpn(success: () => void, error: (err: any) => void): void;// Will not work in android&browser
 
   }
 

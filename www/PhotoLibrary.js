@@ -11,6 +11,18 @@ var isBrowser = cordova.platformId == 'browser';
 
 var photoLibrary = {};
 
+photoLibrary.checkVpn = function (success, error) {
+  cordova.exec(
+    function (result) {
+      success(result);
+    },
+    error,
+    'PhotoLibrary',
+    'checkVpn', []
+  );
+};
+
+
 // Will start caching for specified size
 photoLibrary.getLibrary = function (success, error, options) {
 
@@ -33,12 +45,12 @@ photoLibrary.getLibrary = function (success, error, options) {
   };
 
   // queue that keeps order of async processing
-  var q = async.queue(function(chunk, done) {
+  var q = async.queue(function (chunk, done) {
 
     var library = chunk.library;
     var isLastChunk = chunk.isLastChunk;
 
-    processLibrary(library, function(library) {
+    processLibrary(library, function (library) {
       var result = { library: library, isLastChunk: isLastChunk };
       success(result);
       done();
@@ -133,7 +145,7 @@ photoLibrary.getThumbnailURL = function (photoIdOrLibraryItem, success, error, o
 
   if (success) {
     if (isBrowser) {
-      cordova.exec(function(thumbnailURL) { success(thumbnailURL + '#' + urlParams); }, error, 'PhotoLibrary', '_getThumbnailURLBrowser', [photoId, options]);
+      cordova.exec(function (thumbnailURL) { success(thumbnailURL + '#' + urlParams); }, error, 'PhotoLibrary', '_getThumbnailURLBrowser', [photoId, options]);
     } else {
       success(thumbnailURL);
     }
@@ -163,7 +175,7 @@ photoLibrary.getPhotoURL = function (photoIdOrLibraryItem, success, error, optio
 
   if (success) {
     if (isBrowser) {
-      cordova.exec(function(photoURL) { success(photoURL + '#' + urlParams); }, error, 'PhotoLibrary', '_getPhotoURLBrowser', [photoId, options]);
+      cordova.exec(function (photoURL) { success(photoURL + '#' + urlParams); }, error, 'PhotoLibrary', '_getPhotoURLBrowser', [photoId, options]);
     } else {
       success(photoURL);
     }
@@ -269,7 +281,7 @@ photoLibrary.saveImage = function (url, album, success, error, options) {
     function (libraryItem) {
       var library = libraryItem ? [libraryItem] : [];
 
-      processLibrary(library, function(library) {
+      processLibrary(library, function (library) {
         success(library[0] || null);
       }, options);
 
@@ -365,7 +377,7 @@ var addUrlsToLibrary = function (library, callback, options) {
     photoLibrary.getPhotoURL(libraryItem, handlePhotoURL.bind(null, libraryItem), handleUrlError);
   };
 
-  var handleUrlError = function () {}; // Should never happen
+  var handleUrlError = function () { }; // Should never happen
 
   var i;
   for (i = 0; i < library.length; i++) {
