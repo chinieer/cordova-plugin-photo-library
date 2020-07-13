@@ -13,9 +13,7 @@ var photoLibrary = {};
 
 photoLibrary.checkVpn = function (success, error) {
   cordova.exec(
-    function (result) {
-      success(result);
-    },
+    success,
     error,
     'PhotoLibrary',
     'checkVpn', []
