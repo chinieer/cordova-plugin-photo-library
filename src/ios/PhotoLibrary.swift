@@ -29,20 +29,21 @@ import Foundation
     }
     
     @objc func checkVpn(_ command: CDVInvokedUrlCommand)  {
-        
-        concurrentQueue.async {
-            var pluginResult:CDVPluginResult?
-            if let settings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? Dictionary<String, Any>,
-                let scopes = settings["__SCOPED__"] as? [String:Any] {
-                for (key, _) in scopes {
-                    if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
-                        pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: true)
-                    }
+ 
+        if let settings = CFNetworkCopySystemProxySettings()?.takeRetainedValue() as? Dictionary<String, Any>,
+            let scopes = settings["__SCOPED__"] as? [String:Any] {
+            for (key, _) in scopes {
+                if key.contains("tap") || key.contains("tun") || key.contains("ppp") || key.contains("ipsec") {
+                    let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: true)
+                    self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
+                    return
                 }
             }
-            pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: false)
-            self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
         }
+        let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: false)
+        self.commandDelegate!.send(pluginResult, callbackId: command.callbackId)
+        return
+      
     }
     @objc func onPause (notification: NSNotification) {
 //        UIScreen.main.brightness = CGFloat(0.1)
